@@ -20,8 +20,8 @@ totalSalaries = 0
 os.system('cls')
 
 #prnt header -- at the end, once everything else is running accurately
-print("NAME \tAGE \tSALARY")
-print("--------------------------")
+print(f"{'NAME':10s} \t{'AGE':2s} \t{'SALARY':10s}")
+print("-----------------------------------------")
 
 #STEP 2: CONNNECT TO THE FILE LOCATION
 #right-click the text/csv file in folder view --> "Properties" to find the file location
@@ -47,11 +47,15 @@ with open("week2/demo/example.csv") as csvfile:
     for rec in file:
 
         # sentence = ""
+        # index = 0
         # for line in rec:
-        #     sentence += line + "   "
+        #     if index == 2:
+        #         line = "$" + line
+        #     sentence += line + "\t"
+        #     index += 1
 
         # print(sentence)
-        print(f"{rec[0]}\t{rec[1]}\t${rec[2]}")
+        print(f"{rec[0]:10s}\t{float(rec[1]):2.0f}\t${float(rec[2]):10.2f}")
 
         #update record count
         totalRecords += 1
