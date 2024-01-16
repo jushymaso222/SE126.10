@@ -9,26 +9,30 @@
 #BASE PROGRAM CODE-------------------------------------------------------------------
 
 #STEP 1: import csv library so we can read the file
-
+import csv
+import os
 
 #you should ALWAYS have a total records var for your first few attempts at file reading
+totalRecords = 0
 
 #holds all salaries in file for total print at end
+totalSalaries = 0
+os.system('cls')
 
 #prnt header -- at the end, once everything else is running accurately
-
+print("NAME \tAGE \tSALARY")
+print("--------------------------")
 
 #STEP 2: CONNNECT TO THE FILE LOCATION
 #right-click the text/csv file in folder view --> "Properties" to find the file location
 #these file locations are cAsE sEnSiTiVe & space/special character sensitive so DOUBLE CHECK THEM!
 #flip all '\' to '/'
-
-
-
+with open("week2/demo/example.csv") as csvfile:
     #notice ':' everything must be INDENTED now (until we're ready to "close" the file)
 
     #STEP 3: ALLOW THE FILE TO BE READ BY OUR PROGRAM
-    
+    file = csv.reader(csvfile)
+
     #now the file we have connected is known in the program as 'file'
     #file has several records, each record has several fields
 
@@ -39,6 +43,60 @@
     
     #STEP 4: ACTUALLY READ/PROCESS THE FILE DATA, ONE RECORD AT A TIME
     
+
+    for rec in file:
+
+        # sentence = ""
+        # for line in rec:
+        #     sentence += line + "   "
+
+        # print(sentence)
+        print(f"{rec[0]}\t{rec[1]}\t${rec[2]}")
+
+        #update record count
+        totalRecords += 1
+
+        #update total salary
+        totalSalaries += float(rec[2])
+
+print(f"\nTOTAL RECORDS: {totalRecords} | TOTAL SALARIES: ${totalSalaries:.2f}")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         #notice the ':' everything in the for loop must be INDENTED
         #RANGE: for each record in the file, do the following
