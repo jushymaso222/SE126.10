@@ -22,7 +22,7 @@ with open("week2/hw/Lab2a/lab2a.csv") as csvfile:
         totalRecs += 1 #Counts the total number of records it goes over (this will also be the same as #stack)
 
 #Calculation function takes a record as an argument
-def analyzer(rec):
+def analyze(rec):
     ans = float(rec[1]) - float(rec[2]) #Calculates the capacity of the room minus the total number of people attending
     if ans > 0:
         check = True #This check will stay true if the room is within capacity
@@ -36,10 +36,16 @@ print("--------------------------------------")
 
 #Iterating through the stack to check all of the records we added from the file earlier
 for record in stack:
-    process = analyzer(record) #Function will take the record and return two variables, the amount over if applicable, and a boolean stating whether it is over or not
+    process = analyze(record) #Function will take the record and return two variables, the amount over if applicable, and a boolean stating whether it is over or not
     if process[1] == False: #Check for only records that exceed the capacity
         print(f"{record[0]:20s} {record[1]:4s} {record[2]:4s}{abs(process[0]):4.0f}")
         totalOver += 1
 
 #FINAL PRINT STATEMENT
 print(f"\n{totalRecs} records have been analyzed.\n{totalOver} meetings were over the max capacity.")
+
+#Hold screen for users in command prompt or powershell
+input('Press any key to continue')
+
+#Did you know that geckos, and other sticky-footed reptiles, cannot stick to Teflon?
+#The more comments the merrier am I right? The comment above needed a friend so i added this one to give it a companion. You're welcome, line 50.
