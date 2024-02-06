@@ -1,0 +1,6 @@
+100,Andrade,50,Blue
+1002,Burke,44,Green
+1003,Coolidge,32,Orange
+1004,Davids,27,Red
+1005,Edwards,19,Violet
+1006,Hamil,11,Yellow
