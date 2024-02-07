@@ -34,6 +34,29 @@ usernameTextboxActive = False
 passwordTextboxActive = False
 canAcceptKeyTrue = True
 signupButtonVisible = False
+passwordWrong = False
+userExists = False
+
+def submitButton():
+    BUTTONIMG = BUTTONDOWN
+    if page == "login":
+        form = acc.login(usernameTextboxData, passwordTextboxData)
+        if form == "404":
+            signupButtonVisible = True
+        elif form == "incpass":
+            print("Wrong password")
+            passwordWrong = True
+        else:
+            print("logged in")
+    elif page == "signup":
+        form = acc.createProfile(usernameTextboxData, passwordTextboxData)
+        if form == "exists":
+            print("Username exists")
+            userExists = True
+        else:
+            print("created")
+
+
 
 while running:
     BUTTONIMG = BUTTONUP
@@ -45,19 +68,7 @@ while running:
         if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1:
                     if submitRect.collidepoint(event.pos): #submit button
-                        BUTTONIMG = BUTTONDOWN
-                        if page == "login":
-                            form = acc.login(usernameTextboxData, passwordTextboxData)
-                            if form == "404":
-                                signupButtonVisible = True
-                            elif form == "incpass":
-                                print("Wrong password")
-                        elif page == "signup":
-                            form = acc.createProfile(usernameTextboxData, passwordTextboxData)
-                            if form == "exists":
-                                print("Username exists")
-                            else:
-                                print("created")
+                        submitButton()
                     if signupButtonVisible and signupRect.collidepoint(event.pos): #SIGN UP BUTTON
                         page = "signup"
                     if page == "signup" and loginRect.collidepoint(event.pos): #LOGIN BUTTON
@@ -79,7 +90,6 @@ while running:
                     canAcceptKey = False
                     usernameTextboxActive = False
                     passwordTextboxActive = True
-                    print("Tabbed 1")
                 elif event.key != pygame.K_BACKSPACE and usernameTextboxActive == True:
                     usernameTextboxData += event.unicode
                 
@@ -89,9 +99,13 @@ while running:
                 elif event.key == pygame.K_TAB and passwordTextboxActive == True and canAcceptKey:
                     canAcceptKey = False
                     passwordTextboxActive = False
-                    print("Tabbed 2")
                 elif event.key != pygame.K_BACKSPACE and passwordTextboxActive == True and canAcceptKey == True:
                     passwordTextboxData += event.unicode
+
+             if event.key == pygame.K_RETURN and passwordTextboxActive:
+                passwordTextboxActive = False
+                passwordTextboxData = passwordTextboxData[:-1]
+                submitButton()
 
         if event.type != pygame.KEYUP:
             canAcceptKey = True
@@ -125,10 +139,18 @@ while running:
         screen.blit(text_surface2, (passwordTextbox.x+5, passwordTextbox.y+5)) 
         passwordTextbox.w = max(300, text_surface2.get_width()+10)
 
+
         #RENDER TEXT
         if signupButtonVisible:
             signupText = fontUnderlined.render("Sign-Up", True, (0,0,0), (255,255,255))
             screen.blit(signupText, ((screen.get_width() / 2) - 30,350))
+
+            wrongUserText = font.render("Username Not Found!", True, (255,0,0), (255,255,255))
+            screen.blit(wrongUserText, ((screen.get_width() / 2) - 25,420))
+
+        if passwordWrong:
+            wrongPassText = font.render("Incorrect Password!", True, (255,0,0), (255,255,255))
+            screen.blit(wrongPassText, ((screen.get_width() / 2) - 25,420))
 
         loginText = font.render("Login", True, (0,0,0), (255,255,255))
         screen.blit(loginText, ((screen.get_width() / 2) - 25,110))
@@ -156,6 +178,10 @@ while running:
         passwordTextbox.w = max(300, text_surface2.get_width()+10)
 
         #RENDER TEXT
+        if userExists:
+            userExistsText = font.render("Username Taken!", True, (255,0,0), (255,255,255))
+            screen.blit(userExistsText, ((screen.get_width() / 2) - 25,420))
+
         signupText = fontUnderlined.render("Login", True, (0,0,0), (255,255,255))
         screen.blit(signupText, ((screen.get_width() / 2) - 30,350))
 

@@ -21,8 +21,7 @@ def login(user, pass1):
       f = open("PyGameProject/profiles/"+user+".yaml","r")
       list = yaml.full_load(f)
       passTemp = list['Pass']
-      pass2 = passTemp
-      if pass1 == pass2:
+      if pass1 == passTemp:
         return list
       else:
         print("Incorrect password!")
