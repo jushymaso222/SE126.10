@@ -17,6 +17,14 @@ BUTTONDOWN = pygame.image.load("PyGameProject/testdown.png").convert_alpha()
 BUTTONIMG = BUTTONUP
 submitRect = BUTTONIMG.get_rect(topleft=((screen.get_width()/2)-74,400)) #button position on screen
 
+savedIMG = pygame.image.load("PyGameProject/saved.png").convert_alpha()
+newCharacterIMG = pygame.image.load("PyGameProject/newCharacter.png").convert_alpha()
+accountIMG = pygame.image.load("PyGameProject/account.png").convert_alpha()
+
+savedRect = savedIMG.get_rect(topleft=((10,50)))
+newCharacterRect = newCharacterIMG.get_rect(topleft=((10,150)))
+accountRect = accountIMG.get_rect(topleft=((10,250)))
+
 page = "login"
 
 activeUser = []
@@ -38,6 +46,8 @@ canAcceptKeyTrue = True
 signupButtonVisible = False
 passwordWrong = False
 userExists = False
+
+displayText = "Filler"
 
 
 
@@ -137,6 +147,17 @@ while running:
                         passwordTextboxData = ''
         if event.type != pygame.KEYUP:
             canAcceptKey = True
+
+            #MAIN MENU INTERACTIONS:
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                if savedRect.collidepoint(event.pos):
+                    displayText = 'Saved Characters'
+                if accountRect.collidepoint(event.pos):
+                    displayText = 'Account Settings'
+                if newCharacterRect.collidepoint(event.pos):
+                    displayText = 'New Character Creator'
+
         
 #END OF KEY ENTRY AREA
 
@@ -230,9 +251,16 @@ while running:
         passwordWrong = False
         userExists = False
 
+        screen.blit(savedIMG, savedRect)
+        screen.blit(newCharacterIMG, newCharacterRect)
+        screen.blit(accountIMG, accountRect)
+
 
         passText = font.render("User: "+activeUser['User'], True, (0,0,0), (255,255,255))
-        screen.blit(passText, ((screen.get_width() / 2) - 150,270))
+        screen.blit(passText, (10,10))
+
+        displayTextS = font.render(displayText, True, (0,0,0), (255,255,255))
+        screen.blit(displayTextS, (400,10))
 
     # text = font.render("Mouse Clicked", True, (0,0,0), (255,255,255)) #string, visible, text color, background color
     # if pygame.mouse.get_pressed()[0]:

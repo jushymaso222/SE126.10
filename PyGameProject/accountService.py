@@ -1,8 +1,4 @@
-import time
 import yaml
-import getpass as g
-
-defaultListFile = "PyGameProject/profiles/default.yaml"
 
 def createProfile(user, pass1):
   match = False
@@ -29,28 +25,3 @@ def login(user, pass1):
     except:
       print("Username doesn't exist!")
       return "404"
-
-def accountMenu():
-  done = False
-  while done == False:
-    print("\033c",end='')
-    print("Please select an option:")
-    print("{1} Create Account")
-    print("{2} Login")
-    reading = input()
-    try:
-      reading = int(reading)
-      if reading == 1:
-        key = "createProfile"
-        done = True
-        return key
-      elif reading == 2:
-        key = "login"
-        done = True
-        return key
-      else:
-        print("Not a listed option.")
-        time.sleep(3)
-    except:
-      print("Not a number.")
-      time.sleep(3)
